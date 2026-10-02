@@ -5,9 +5,10 @@ def iniciar_cliente_udp():
     ip_servidor = input("Digite o IP do servidor: ").strip()
     porta = int(input("Digite a porta utilizada: ").strip())
 
+    # O socket UDP é criado com AF_INET (IPv4) e SOCK_DGRAM (UDP)
     cliente_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     print(f"\n[CLIENTE UDP] Conectado ao destino {ip_servidor}:{porta}")
-    print("Digite suas mensagens. Digite 'sair' para encerrar.\n")
+    print("Digite suas mensagens. Digite '/sair' para encerrar.\n")
 
     try:
         while True:
@@ -24,7 +25,7 @@ def iniciar_cliente_udp():
             # Envia a mensagem para o servidor
             cliente_socket.sendto(mensagem.encode('utf-8'), (ip_servidor, porta))
 
-            # Configura um timeout de 3 segundos para aguardar a resposta
+            # Define um tempo limite para aguardar a resposta do servidor de 3 segundos
             cliente_socket.settimeout(3.0)
             try:
                 resposta, _ = cliente_socket.recvfrom(2048)
